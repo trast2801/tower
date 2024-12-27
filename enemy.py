@@ -3,7 +3,11 @@ from pygame.math import Vector2
 
 
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, path, speed=2, health=10, image_path=None, game = None):
+    '''
+    определяет класс врага, его движение по карте, здоровье и получение урона.
+    '''
+
+    def __init__(self, path, speed=2, health=10, image_path=None, game=None):
 
         super().__init__()
         self.image = pygame.Surface((30, 40))

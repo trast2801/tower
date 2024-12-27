@@ -4,7 +4,20 @@ from settings import Settings
 from level import Level
 from grid import Grid
 
+
 class TowerDefenseGame:
+    '''Главный класс игры, управляющий основным циклом игры, событиями, обновлениями состояний и отрисовкой.
+        __init__(self): Конструктор, инициализирует основные параметры игры, загружает ресурсы и создаёт объекты уровня и сетки.
+        game_over(self): Обрабатывает условия окончания игры.
+        is_position_inside(self, pos): Проверяет, находится ли позиция в пределах игрового поля.
+        _check_events(self): Обрабатывает игровые события, такие как нажатие клавиш и клики мыши.
+        _update_game(self): Обновляет состояние игры, вызывая обновления уровня и сетки.
+        _draw_win_screen(self): Отображает экран победы.
+        _draw_game_over_screen(self): Отображает экран проигрыша.
+        _draw(self): Управляет отрисовкой всех элементов игры.
+        run_game(self): Запускает основной игровой цикл
+    '''
+
     def __init__(self):
         pygame.init()
         self.settings = Settings()
@@ -24,6 +37,7 @@ class TowerDefenseGame:
         self.shoot_sound = pygame.mixer.Sound(self.settings.shoot_sound)
         self.selected_tower_type = 'basic'
         self.is_game_over = False
+        self.hide_grid_tower = True  # атрибут скрывающий сетку башен
 
     def game_over(self):
         self.is_game_over = True
@@ -44,6 +58,12 @@ class TowerDefenseGame:
                 elif event.key == pygame.K_2:
                     self.selected_tower_type = 'sniper'
                     print("Selected sniper tower.")
+                elif event.key == pygame.K_SPACE:
+                    if self.hide_grid_tower:
+                        self.hide_grid_tower = False
+                    else:
+                        self.hide_grid_tower = True
+
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self.selected_tower_type:
                     mouse_pos = pygame.mouse.get_pos()
@@ -58,7 +78,7 @@ class TowerDefenseGame:
     def _draw_win_screen(self):
         win_text = "You Win!"
         win_render = self.font.render(win_text, True, (255, 215, 0))
-        win_rect = win_render.get_rect(center=(self.settings.screen_width/2, self.settings.screen_height/2))
+        win_rect = win_render.get_rect(center=(self.settings.screen_width / 2, self.settings.screen_height / 2))
         self.screen.blit(win_render, win_rect)
 
     def _draw_game_over_screen(self):
@@ -66,7 +86,8 @@ class TowerDefenseGame:
 
         game_over_text = "Game Over!"
         game_over_render = self.font.render(game_over_text, True, (255, 0, 0))
-        game_over_rect = game_over_render.get_rect(center=(self.settings.screen_width / 2, self.settings.screen_height / 2))
+        game_over_rect = game_over_render.get_rect(
+            center=(self.settings.screen_width / 2, self.settings.screen_height / 2))
 
         self.screen.blit(game_over_render, game_over_rect)
 
@@ -76,7 +97,8 @@ class TowerDefenseGame:
         else:
             self.screen.blit(self.background, (0, 0))
             self.level.draw(self.screen)
-            self.grid.draw()
+            if self.hide_grid_tower:
+                self.grid.draw()
 
             money_text = self.font.render(f"Money: ${self.settings.starting_money}", True, (255, 255, 255))
             tower_text = self.font.render(

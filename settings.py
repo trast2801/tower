@@ -1,4 +1,9 @@
 class Settings:
+    '''
+    файл настроек, содержит параметры конфигурации игры, такие как размеры экрана,
+    стоимость и параметры башен, пути к ресурсам и т.д.
+    '''
+
     def __init__(self):
         self.screen_width = 1200
         self.screen_height = 800
@@ -34,5 +39,6 @@ class Settings:
         self.starting_money = 500
         self.lives = 20
 
-        self.tower_positions = [(x * self.grid_size[0] + self.grid_size[0] // 2, y * self.grid_size[1] + self.grid_size[1] // 2)
-                                for x in range(1, self.cols) for y in range(3, self.rows)]
+        self.tower_positions = [
+            (x * self.grid_size[0] + self.grid_size[0] // 2, y * self.grid_size[1] + self.grid_size[1] // 2)
+            for x in range(1, self.cols) for y in range(3, self.rows)]

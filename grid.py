@@ -2,6 +2,17 @@ import pygame
 
 
 class Grid:
+    '''
+    Отвечает за сетку, где игрок может размещать башни.
+    `__init__(self, game): Инициализирует сетку.
+    update(self): Может использоваться для обновления сетки.
+    draw(self): Отображает сетку на экране.
+    place_tower(self, tower): Размещает башню на сетке.
+    remove_tower(self, tower): Удаляет башню с сетки.
+    get_grid_position(self, mouse_pos): Возвращает позицию сетки, ближайшую к позиции курсора.
+    `is_spot_available(self, grid_pos): Проверяет, доступно ли место для размещения башни.
+    '''
+
     def __init__(self, game):
         self.game = game
         self.settings = game.settings

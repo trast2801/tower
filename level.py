@@ -1,18 +1,33 @@
 import pygame
+
 from enemy import Enemy
 from tower import BasicTower, SniperTower
 
 
 class Level:
+    '''
+    Управляет уровнем игры, волнами врагов и расстановкой башен.
+    __init__(self, game): Инициализирует уровень игры.
+    start_next_wave(self): Запускает следующую волну врагов.
+    spawn_next_enemy(self): Генерирует следующего врага текущей волны.
+    attempt_place_tower(self, mouse_pos, tower_type): Пытается разместить башню выбранного типа в позиции курсора.
+    update(self): Обновляет состояние уровня, врагов, башен и пуль.
+    draw_path(self, screen): Отображает путь врагов.
+    draw(self, screen): Отрисовывает уровень, включая врагов, башни и пули.
+    '''
+
     def __init__(self, game):
         self.game = game
         self.enemies = pygame.sprite.Group()
         self.towers = pygame.sprite.Group()
         self.bullets = pygame.sprite.Group()
         self.waves = [
-            [{'path': self.game.settings.enemy_path, 'speed': 1, 'health': 100, 'image_path': 'assets/enemies/basic_enemy.png'}] * 5,
-            [{'path': self.game.settings.enemy_path, 'speed': 1.5, 'health': 150, 'image_path': 'assets/enemies/fast_enemy.png'}] * 7,
-            [{'path': self.game.settings.enemy_path, 'speed': 0.75, 'health': 200, 'image_path': 'assets/enemies/strong_enemy.png'}] * 4,
+            [{'path': self.game.settings.enemy_path, 'speed': 1, 'health': 100,
+              'image_path': 'assets/enemies/basic_enemy.png'}] * 5,
+            [{'path': self.game.settings.enemy_path, 'speed': 1.5, 'health': 150,
+              'image_path': 'assets/enemies/fast_enemy.png'}] * 7,
+            [{'path': self.game.settings.enemy_path, 'speed': 0.75, 'health': 200,
+              'image_path': 'assets/enemies/strong_enemy.png'}] * 4,
         ]
         self.current_wave = 0
         self.spawned_enemies = 0

@@ -4,6 +4,12 @@ import math
 
 
 class Tower(pygame.sprite.Sprite):
+    '''
+     Базовый класс для всех башен, его методы включают инициализацию, отрисовку, обновление, стрельбу, поворот к цели и поиск цели.
+     class BasicTower(Tower) и class SniperTower(Tower): Конкретные реализации башен, расширяющие базовый класс.
+     Снайперская имеет собственный алгоритм выбора цели.
+    '''
+
     def __init__(self, position, game):
         super().__init__()
         self.position = pygame.math.Vector2(position)
@@ -25,7 +31,7 @@ class Tower(pygame.sprite.Sprite):
         mouse_pos = pygame.mouse.get_pos()
         if self.is_hovered(mouse_pos):
             level_text = self.game.font.render(f"Level: {self.level}", True, (255, 255, 255))
-            upgrade_cost_text = self.game.font.render(f"Upgrade: ${self.upgrade_cost()  }", True, (255, 255, 255))
+            upgrade_cost_text = self.game.font.render(f"Upgrade: ${self.upgrade_cost()}", True, (255, 255, 255))
 
             level_text_pos = (self.position.x, self.position.y + 20)
             upgrade_cost_pos = (self.position.x, self.position.y + 40)

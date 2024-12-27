@@ -3,6 +3,10 @@ from pygame.math import Vector2
 
 
 class Bullet(pygame.sprite.Sprite):
+    '''
+    класс пули, управляет движением пули, проверкой попаданий в врагов и нанесением урона.
+    '''
+
     def __init__(self, start_pos, target_pos, damage, game):
         super().__init__()
         self.game = game
