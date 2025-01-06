@@ -23,6 +23,7 @@ class Tower(pygame.sprite.Sprite):
         self.last_shot_time = pygame.time.get_ticks()
         self.level = 1
         self.original_image = self.image
+        self.shoot_sound = self.game.shoot_sound
 
     def upgrade_cost(self):
         return 100 * self.level
@@ -51,6 +52,7 @@ class Tower(pygame.sprite.Sprite):
         return self.rect.collidepoint(mouse_pos)
 
     def shoot(self, target, bullets_group):
+        self.shoot_sound.play()
         pass
 
     def rotate_towards_target(self, target):
@@ -88,9 +90,11 @@ class BasicTower(Tower):
         self.damage = 20
         self.rate_of_fire = 1000
 
+
     def shoot(self, target, bullets_group):
         new_bullet = Bullet(self.position, target.position, self.damage, self.game)
         bullets_group.add(new_bullet)
+        self.shoot_sound.play()
 
 
 class SniperTower(Tower):
@@ -116,3 +120,4 @@ class SniperTower(Tower):
     def shoot(self, target, bullets_group):
         new_bullet = Bullet(self.position, target.position, self.damage, self.game)
         bullets_group.add(new_bullet)
+        self.shoot_sound.play()

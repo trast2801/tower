@@ -46,8 +46,10 @@ class Level:
         if self.spawned_enemies < len(self.waves[self.current_wave]):
             enemy_info = self.waves[self.current_wave][self.spawned_enemies]
             new_enemy = Enemy(**enemy_info, game=self.game)
+            pygame.mixer.Sound(self.game.settings.enemy_spawn_sound).play()
             self.enemies.add(new_enemy)
             self.spawned_enemies += 1
+
 
     def attempt_place_tower(self, mouse_pos, tower_type):
         tower_classes = {'basic': BasicTower, 'sniper': SniperTower}

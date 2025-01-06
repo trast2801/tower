@@ -42,3 +42,6 @@ class Settings:
         self.tower_positions = [
             (x * self.grid_size[0] + self.grid_size[0] // 2, y * self.grid_size[1] + self.grid_size[1] // 2)
             for x in range(1, self.cols) for y in range(3, self.rows)]
+
+        self.shoot_sound = 'assets/sounds/bah.mp3'
+        self.enemy_spawn_sound = 'assets/sounds/enemy_hit.wav'
