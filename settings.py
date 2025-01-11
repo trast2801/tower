@@ -14,6 +14,7 @@ class Settings:
         self.grid_size = (64, 64)
 
         self.tower_cost = 100
+        self.money_tower_cost = 200
         self.tower_upgrade_cost = 150
         self.tower_sell_percentage = 0.75
 
@@ -23,8 +24,9 @@ class Settings:
         ]
 
         self.tower_sprites = {
-            'basic': 'assets/towers/basic_tower.png',
-            'sniper': 'assets/towers/sniper_tower.png',
+            'basic': 'assets/towers/basic_tower.png', #путь к рисунку базовой башни
+            'sniper': 'assets/towers/sniper_tower.png', #путь к рисунку снайпер башни
+            'money': 'assets/towers/money_tower.png'#путь к рисунку генерирующей деньги башни
         }
         self.enemy_sprite = 'assets/enemies/basic_enemy.png'
         self.bullet_sprite = 'assets/bullets/basic_bullet.png'
@@ -36,7 +38,7 @@ class Settings:
         self.enemy_hit_sound = 'assets/sounds/enemy_hit.wav'
         self.background_music = 'assets/sounds/background_music.mp3'
 
-        self.starting_money = 500
+        self.starting_money = 1000
         self.lives = 20
 
         self.tower_positions = [

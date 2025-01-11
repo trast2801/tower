@@ -121,3 +121,36 @@ class SniperTower(Tower):
         new_bullet = Bullet(self.position, target.position, self.damage, self.game)
         bullets_group.add(new_bullet)
         self.shoot_sound.play()
+
+class BankTower(Tower):
+    '''
+    Класс, представляющий денежную башню в игре Tower Defense.
+    Эта башня генерирует деньги для игрока с заданной скоростью.
+    money_rate: Количество денег, генерируемое за один интервал.
+    generation_interval: Интервал времени (в миллисекундах) для генерации денег.
+    last_generation_time: Время последней генерации денег.
+    '''
+
+    def __init__(self, position, game):
+        '''
+        Инициализация денежной башни
+        '''
+        super().__init__(position, game)
+        self.image = pygame.image.load('assets/towers/money_tower.png').convert_alpha()
+        self.original_image = self.image
+        self.rect = self.image.get_rect(center=self.position)
+        self.money_rate = 15
+        self.generation_interval = 1000  # Интервал генерации в миллисекундах
+        self.last_generation_time = pygame.time.get_ticks()
+
+    def update(self, enemies, current_time, bullets_group):
+        # Генерация денег с заданным интервалом
+        if current_time - self.last_generation_time > self.generation_interval:
+            self.generate_money()
+            self.last_generation_time = current_time
+
+    def generate_money(self):
+        '''
+        Генерирует деньги для игрока.
+        '''
+        self.game.settings.starting_money += self.money_rate
